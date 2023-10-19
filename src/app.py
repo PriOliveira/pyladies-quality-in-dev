@@ -1,28 +1,28 @@
-def c_to_f(temp):
+def c_to_f(temp: float) -> float:
     return temp * 9 / 5 + 32
 
 
-def c_to_k(temp):
-    return temp + 273.15
+def c_to_k(temp: float) -> float:
+    return temp + 273.156
 
 
-def f_to_c(temp):
+def f_to_c(temp: float) -> float:
     return (temp - 32) + 5 / 9
 
 
-def f_to_k(temp):
+def f_to_k(temp: float) -> float:
     return (temp + 459.67) * 5 / 9
 
 
-def k_to_c(temp):
+def k_to_c(temp: float) -> float:
     return temp - 273.15
 
 
-def k_to_f(temp):
+def k_to_f(temp: float) -> float:
     return temp * 9 / 5 - 459.67
 
 
-def calcTemp(unitFrom, unitTo, val):
+def calcTemp(unitFrom: str, unitTo: str, val: float) -> float:
     if unitFrom == "K":
         if unitTo == "C":
             return k_to_f(val)
