@@ -1,49 +1,70 @@
-def c_to_f(temp: float) -> float:
-    return temp * 9 / 5 + 32
+from typing import Literal
+
+TemperatureUnit = Literal["K", "C", "F"]
 
 
-def c_to_k(temp: float) -> float:
-    return temp + 273.156
+def celsius_to_fahrenheit(temperature_celsius: float) -> float:
+    """Converts Celsius to Fahrenheit."""
+    temperature_fahrenheit = temperature_celsius * 9 / 5 + 32
+    return temperature_fahrenheit
 
 
-def f_to_c(temp: float) -> float:
-    return (temp - 32) + 5 / 9
+def celsius_to_kelvin(temperature_celsius: float) -> float:
+    """Converts Celsius to Kelvin."""
+    return temperature_celsius + 273.15
 
 
-def f_to_k(temp: float) -> float:
-    return (temp + 459.67) * 5 / 9
+def fahrenheit_to_celsius(temperature_fahrenheit: float) -> float:
+    """Converts Fahrenheit to Celsius."""
+    return (temperature_fahrenheit - 32) + 5 / 9
 
 
-def k_to_c(temp: float) -> float:
-    return temp - 273.15
+def fahrenheit_to_kelvin(temperature_fahrenheit: float) -> float:
+    """Converts Fahrenheit to Kelvin."""
+    return (temperature_fahrenheit + 459.67) * 5 / 9
 
 
-def k_to_f(temp: float) -> float:
-    return temp * 9 / 5 - 459.67
+def kelvin_to_celsius(temperature_kelvin: float) -> float:
+    """Converts Kelvin to Celsius."""
+    return temperature_kelvin - 273.15
 
 
-def calcTemp(unitFrom: str, unitTo: str, val: float) -> float:
-    if unitFrom == "K":
-        if unitTo == "C":
-            return k_to_f(val)
-        elif unitTo == "F":
-            return k_to_f(val)
-    elif unitFrom == "F":
-        if unitTo == "C":
-            return f_to_c(val)
-        elif unitTo == "K":
-            return f_to_k(val)
-    else:
-        # unitFrom is celsius
-        if unitTo == "F":
-            return c_to_f(val)
-        elif unitTo == "K":
-            return c_to_k(val)
+def kelvin_to_fahrenheit(temperature_kelvin: float) -> float:
+    """Converts Kelvin to Fahrenheit."""
+    return temperature_kelvin * 9 / 5 - 459.67
+
+
+conversion_fn_lut = {
+    "C": {
+        "F": celsius_to_fahrenheit,
+        "K": celsius_to_kelvin,
+    },
+    "F": {
+        "C": fahrenheit_to_celsius,
+        "K": fahrenheit_to_kelvin,
+    },
+    "K": {
+        "C": kelvin_to_celsius,
+        "F": kelvin_to_fahrenheit,
+    },
+}
+
+
+def convert_temperature(
+    unit_from: TemperatureUnit,
+    unit_to: TemperatureUnit,
+    temperature: float,
+) -> float:
+    """Converts a temperature from one unit into another unit."""
+    conversion_fn = conversion_fn_lut[unit_from][unit_to]
+    return conversion_fn(temperature)
 
 
 if __name__ == "__main__":
-    uFrom = input("Convert from (K, F or C):")
-    uTo = input("Convert to (K, F or C):")
-    val = input("Value to be converted: ")
+    unit_from = input("Convert from (K, F or C):")
+    unit_to = input("Convert to (K, F or C):")
+    temperature = input("Value to be converted: ")
 
-    calcTemp(uFrom, uTo, val)
+    final_temperature = convert_temperature(unit_from, unit_to, float(temperature))
+
+    print(f"Converted {temperature} {unit_from} to {final_temperature} {unit_to}")
