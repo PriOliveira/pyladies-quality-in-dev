@@ -1,0 +1,39 @@
+default_language_version:
+  python: python3.11
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: debug-statements
+      - id: mixed-line-ending # Windows vs unix line endings
+      - id: end-of-file-fixer # Makes sure files end in a newline and only a newline
+      - id: trailing-whitespace
+      - id: detect-private-key
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+  - repo: https://github.com/psf/black
+    rev: 23.10.0
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/pycqa/docformatter
+    rev: v1.7.5
+    hooks:
+      - id: docformatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+        language: system # Use installed packages
