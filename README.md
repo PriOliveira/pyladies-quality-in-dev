@@ -12,10 +12,12 @@ This is a repository with the contents of the presentation about "Quality stages
   - [Branches](#branches)
     - [Raw](#raw)
     - [Auto](#auto)
+    - [Types and tests](#types-and-tests)
   - [How to run](#how-to-run)
     - [Dependencies](#dependencies)
     - [Initial setup](#initial-setup)
     - [Running locally](#running-locally)
+    - [Tests](#tests)
 
 ## Slides
 
@@ -27,7 +29,7 @@ This repo contains different branches to apply the concepts of the presentation 
 
 - [`raw_1`](#raw): represents the initial code, without applying any linter.
 - [`auto_2`](#auto): just with the configuration of the IDE (VSCode) and the help of extensions, the code gets formatted.
-- `types_3`: adds type hint and a couple of tests.
+- [`types_3`](#types-and-test): adds type hint and a couple of tests.
 - `linter_4`: applies clean code, add more tests, fix some bugs.
 
 Each branch has its `README.md` with more details about what is going on there and the tools used.
@@ -72,6 +74,24 @@ black src
 isort src
 ```
 
+### Types and tests
+
+In the branch `types_3` the idea is to check static typing and tests, both types and tests are now present in this branch. And there is one bug that got introduced when adding the types.
+
+Here you'll need to install the dependencies again, since there are new libraries in `requirements-dev.txt`.
+
+Stating with type hints, let's use `mypy` to check if the types are compatibles and correctly used. Run the following:
+
+```bash
+mypy src
+```
+
+There are some issues listed which are the root of the bug that was spotted in `raw_1` branch, this code does not work and crashes :(
+
+Now moving on to tests, if you check [`tests/test_app.py`](tests/test_app.py) a couple of tests were added and they only cover Celsius conversions, still they catch the other bug in the code that was introduced when adding types to this branch.
+
+To run the tests, check [How to run tests section](#tests).
+
 ## How to run
 
 ### Dependencies
@@ -99,4 +119,12 @@ In the root folder of the project, run with:
 
 ```bash
 python src/app.py
+```
+
+### Tests
+
+To run the tests, ensure that the development dependencies are installed [`requirements-dev.txt`](requirements-dev.txt), then run:
+
+```bash
+pytest tests
 ```
