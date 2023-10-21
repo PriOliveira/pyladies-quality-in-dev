@@ -8,8 +8,12 @@ This is a repository with the contents of the presentation about "Quality stages
 
 - [Quality stages on Python development](#quality-stages-on-python-development)
   - [Table of contents](#table-of-contents)
+  - [Slides](#slides)
   - [Branches](#branches)
 
+## Slides
+
+The presentation slides can be found in the root of the project: [Quality stages of Python development.pdf](<Quality stages of Python development.pdf>)
 
 ## Branches
 
