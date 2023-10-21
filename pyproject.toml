@@ -1,0 +1,40 @@
+[tool.black]
+line-length = 140
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+follow_imports = "silent"
+warn_redundant_casts = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[tool.ruff]
+# NOTE: Most strict setup, can be adjustable. And this could change lint passing as ruff evolves and adds more rules.
+select = ["ALL"]
+ignore = [
+  "D213", # incompatible with D212 `multi-line-summary-first-line`
+  "D203", # incompatible with D211 `no-blank-line-before-class`
+]
+
+respect-gitignore = true
+
+# Same as Black.
+line-length = 140
+
+# Assume Python 3.11
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"**/{tests}/*" = [
+  "S101", # Use of `assert` detected - assert makes sense in tests
+  "D103", # Missing docstring in public function
+  "D100", # Missing docstring in public module
+  "D104", # Missing docstring in public package
+]
