@@ -1,0 +1,19 @@
+# NOTE: just an example, rename the file to `.dependabot.yml`
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    reviewers:
+      - "prioliveira"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+
+  - package-ecosystem: "pip"
+    directory: "/" # Location of package manifests
+    reviewers:
+      - "prioliveira"
+    schedule:
+      interval: "weekly"
+      day: "friday"
