@@ -11,6 +11,7 @@ This is a repository with the contents of the presentation about "Quality stages
   - [Slides](#slides)
   - [Branches](#branches)
     - [Raw](#raw)
+    - [Auto](#auto)
   - [How to run](#how-to-run)
     - [Dependencies](#dependencies)
     - [Initial setup](#initial-setup)
@@ -25,7 +26,7 @@ The presentation slides can be found in the root of the project: [Quality stages
 This repo contains different branches to apply the concepts of the presentation step by step:
 
 - [`raw_1`](#raw): represents the initial code, without applying any linter.
-- `auto_2`: just with the configuration of the IDE (VSCode) and the help of extensions, the code gets formatted.
+- [`auto_2`](#auto): just with the configuration of the IDE (VSCode) and the help of extensions, the code gets formatted.
 - `types_3`: adds type hint and a couple of tests.
 - `linter_4`: applies clean code, add more tests, fix some bugs.
 
@@ -45,6 +46,32 @@ Check the code in [`src/app.py`](src/app.py). There are many things that could b
 - There is no input validation;
 - And the **most important**, if you try to run the code, it crashes;
 
+### Auto
+
+In the `auto_2` branch the idea is to just use the auto formatting provided by some tools.
+
+**First** either copy the [`app.py` from `raw_1`](https://github.com/PriOliveira/pyladies-quality-in-dev/blob/raw_1/src/app.py) and save without formatting it or just change back to `raw_1` branch and continue following the README in `auto_2` branch.
+
+There are two options, both need that you install the dependencies, check [Initial setup section](#initial-setup).
+
+One option is to just use the IDE (VSCode) with some extensions and invoke "Format Document" on `src/app.py`:
+ - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+ - [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
+ - [Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+
+Another option is manually running them with:
+
+```bash
+# automatically fix any fixable problems, you can try running without the `--fix` flag to see the errors before fixing them.
+ruff src --fix
+
+# will automatically format the code for you
+black src
+
+# in this point you won't have any imports, but if you had, this would sort them according to PEP 8 (https://peps.python.org/pep-0008/#imports)
+isort src
+```
+
 ## How to run
 
 ### Dependencies
@@ -59,6 +86,11 @@ In the root folder of the project, create a virtual environment and activate it:
 ```bash
 python -m venv env
 source ./env/bin/activate
+```
+
+Install the dependencies with:
+```bash
+pip install -r requirements-dev.txt
 ```
 
 ### Running locally
