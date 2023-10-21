@@ -13,6 +13,14 @@ This is a repository with the contents of the presentation about "Quality stages
     - [Raw](#raw)
     - [Auto](#auto)
     - [Types and tests](#types-and-tests)
+    - [Linter](#linter)
+      - [Challenge](#challenge)
+      - [Solution](#solution)
+    - [Bonus](#bonus)
+      - [pre-commit](#pre-commit)
+        - [Install as a git hook](#install-as-a-git-hook)
+        - [Run manually](#run-manually)
+      - [CI pipeline](#ci-pipeline)
   - [How to run](#how-to-run)
     - [Dependencies](#dependencies)
     - [Initial setup](#initial-setup)
@@ -30,7 +38,7 @@ This repo contains different branches to apply the concepts of the presentation 
 - [`raw_1`](#raw): represents the initial code, without applying any linter.
 - [`auto_2`](#auto): just with the configuration of the IDE (VSCode) and the help of extensions, the code gets formatted.
 - [`types_3`](#types-and-test): adds type hint and a couple of tests.
-- `linter_4`: applies clean code, add more tests, fix some bugs.
+- [`linter_4`](#linter): applies clean code, add more tests, fix some bugs.
 
 Each branch has its `README.md` with more details about what is going on there and the tools used.
 
@@ -91,6 +99,73 @@ There are some issues listed which are the root of the bug that was spotted in `
 Now moving on to tests, if you check [`tests/test_app.py`](tests/test_app.py) a couple of tests were added and they only cover Celsius conversions, still they catch the other bug in the code that was introduced when adding types to this branch.
 
 To run the tests, check [How to run tests section](#tests).
+
+### Linter
+
+The idea of the `linter_4` branch is to improve and fix most of the issues listed on [the Raw section](#raw), while applying the presented concepts.
+
+#### Challenge
+
+Before checking out the code, I'd recommend as an exercise to go back to `types_3` branch and try to improve the code quality on your own first as much as you seem fit. You can use the issues listed on the first branch as a starting point and use the tools presented on the previous branches to aid you.
+
+#### Solution
+
+The improvements are:
+- Clean code: variables and functions were renamed to be clearer on its use.
+- Documentation: added docstring into each function.
+- Fix bug that caused the app to crash (`TypeError`) because the value to be converted is not `float`.
+- Fix bug that caused tests to fail.
+- Fix lint issues.
+- Added tests to the main function `convert_temperature`.
+
+Some points were not implemented:
+- Input validation: nothing is checking if the inputs are as expected (type and values), nothing prevents using the same unit for the input and the output (`unit_from` and `unit_to`). Also there are no tests about that topic.
+
+### Bonus
+
+#### pre-commit
+
+`pre-commit` is a tool that helps you checking all at once many hooks, in our case linting hooks as `black`, `ruff`, `isort`, `mypy` and some others.
+
+It's configuration is given by [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+
+Ensure that you install your dependencies again to install this library first.
+
+##### Install as a git hook
+
+(Optional) You can install it and have it running as a git commit hook, this would run the tool and only allow you to commit if all the linting is passing.
+
+To install `pre-commit` (only needs to be done once), run the following:
+
+```bash
+pre-commit install
+```
+
+##### Run manually
+
+Another option is running manually without installing `pre-commit` as a git hook.
+
+This can be used also as a linting verification in the pipeline, an example file is provided in [CI pipeline section](#ci-pipeline).
+
+To run all hooks in all files, you can use:
+
+```bash
+pre-commit run --all-files
+```
+
+There are options of running only a specific hook or just in the updated files of the branch, check the [documentation](https://pre-commit.com) for getting to know all the tool's capability.
+
+Another recommendation is checking the some available hooks in: https://github.com/pre-commit/pre-commit-hooks.
+
+There might be other very useful hooks. Also many Python libraries (for linting at least) support it, you can also create your own in your custom libraries if you want.
+
+#### CI pipeline
+
+Another bonus here is an example of a CI pipeline config for Github.
+
+Check the pipeline runs in Github and its config is inside [`.github/workflows`](.github/workflows).
+
+It contains an example of linting and testing using Github Actions. As an extra, it also has a task that lints commit messages, making sure they are following the conventional commit structure.
 
 ## How to run
 
